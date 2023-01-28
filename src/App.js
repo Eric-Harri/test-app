@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { forwardRef, useRef } from "react";
 
-function App() {
+export default function App() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <MyInput ref={inputRef} /> 
+      <button onClick={focusInput}>Focus</button>
+    </>
   );
 }
 
-export default App;
+const MyInput = forwardRef(function (props, ref) {
+  return <input ref={ref} {...props} style={{color: 'red'}} />
+});
